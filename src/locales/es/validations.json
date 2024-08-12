@@ -1,0 +1,19 @@
+{
+  "validation.required": "{{field}} es requerido",
+  "validation.max": "{{field}} debe ser al menos {{length}}",
+  "validation.max_value": "{{field}} debe ser al menos {{max}}",
+  "validation.min": "{{field}} no puede ser menor que {{length}}",
+  "validation.min_value": "{{field}} no puede ser menor que {{min}}",
+  "validation.alpha_dash": "{{field}} solo puede contener caracteres alfanuméricos, guiones y guiones bajos",
+  "validation.alpha_num": "{{field}} solo puede contener caracteres alfanuméricos",
+  "validation.email": "{{field}} debe ser una dirección de correo electrónico válida.",
+  "validation.between": "Debe estar entre {{minimum}} y {{maximum}}",
+  "validation.recharge": "Formato permitido: 6, 5-6 o por descanso",
+  "validation.range": "Formato permitido: 20 o 20/60",
+  "validation.hit_dice": "Formato permitido: 2d6",
+  "validation.url": "{{field}} debe ser una URL válida",
+  "validation.audio": "{{field}} debe ser una URL o URI válida",
+  "validation.variable_check": "El {{field}} contiene variables indefinidas",
+  "validation.json": "Este campo contiene un JSON inválido",
+  "validation.username": "Este nombre de usuario ya está en uso"
+}

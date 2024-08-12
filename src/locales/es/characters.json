@@ -1,0 +1,7 @@
+{
+    "character.total_hp": "<p>El primer nivel de tu clase inicia con el valor máximo del <em>Dado de Golpe</em> ({{hit_dice}}) sumado a tu modificador de <em>Constitución</em> ({{modifier}}). (PHB 12)</p>",
+    "character.after_level_up_hp": "<p>Luego, por cada nivel, {{fixed_roll}} dado de golpe más tu modificador de <em>Constitución</em> (mínimo de 1) a tus puntos de golpe máximos. (PHB 15)</p>",
+    "character.level_up_hp": "<p>Por cada nivel, sumas {{fixed_roll}} dado de golpe más tu modificador de <em>Constitución</em> (minímo de 1) a tus puntos de golpe máximos. (PHB 15)</p>",
+    "character.average_fixed_hp_roll": "el promedio del",
+    "character.hp_roll": "la tirada del"
+}

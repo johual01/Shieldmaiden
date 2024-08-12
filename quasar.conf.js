@@ -22,6 +22,7 @@ module.exports = function (/* ctx */) {
 		boot: [
 			{ path: "plugins", server: false },
 			{ path: "hk-components", server: false },
+			{ path: "i18n", server: false },
 			{ path: "vee-validate", server: false },
 			{ path: "firebase-auth", server: false },
 			{ path: "vue-shortkey", server: false },

@@ -1,45 +1,48 @@
 import { db } from 'src/firebase';
 import { extend, ValidationObserver,  ValidationProvider } from 'vee-validate';
 import { required, length, max, min, max_value, min_value, alpha_dash, numeric, alpha_num, email, confirmed} from "vee-validate/dist/rules";
+import { useI18n } from 'vue-i18n'
 
-export default async ({ router, Vue }) => {
+const { t } = useI18n()
+
+export default async ({ _, Vue }) => {
   Vue.component('ValidationProvider', ValidationProvider);
   Vue.component('ValidationObserver', ValidationObserver);
 
   extend("required", {
     ...required,
-    message: "{_field_} is required"
+    message: (field) => t('validation.required', { field: field })
   });
   extend("max", {
     ...max,
-    message: "{_field_} must be {length} or less"
+    message: (field, params) => t('validation.max', {field: field, length: params.length})
   });
   extend("max_value", {
     ...max_value,
-    message: "{_field_} must be {max} or less"
+    message: (field, params) => t('validation.max_value', {field: field, max: params.max})
   });
   extend("min", {
     ...min,
-    message: "{_field_} can't be under {length} "
+    message: (field, params) => t('validation.min', {field: field, length: params.length})
   });
   extend("min_value", {
     ...min_value,
-    message: "{_field_} can't be under {min} "
+    message: (field, params) => t('validation.min_value', {field: field, min: params.min})
   });
   extend('length', length);
   extend('alpha_dash', {
     ...alpha_dash,
-    message: "{_field_} may only contain alpha-numeric characters, dashes and underscores"
+    message: (field) => t('validation.alpha_dash', {field: field})
   });
   extend("numeric", numeric);
   extend('alpha_num', {
     ...alpha_num,
-    message: "{_field_} may only contain alpha-numeric characters."
+    message: (field) => t('validation.alpha_num', {field: field})
   });
 
   extend("email", {
     ...email,
-    message: "{_field_} must be a valid email address."
+    message: (field) => t('validation.email', {field: field})
   });
 
   // Value is same as other field
@@ -51,7 +54,7 @@ export default async ({ router, Vue }) => {
       return Number(minimum) <= value && Number(maximum) >= value;
     },
     params: ["minimum", "maximum"],
-    message: "Must be between {minimum} and {maximum}"
+    message: (_, params) => t('validation.between', {minimum: params.minimum, maximum: params.maximum})
   });
 
   // Recharge 1, 5-6 or rest
@@ -73,7 +76,7 @@ export default async ({ router, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: 'Allowed format: 20 or 20/60',
+    message: t('validation.range'),
   });
 
   // Hit dice
@@ -84,7 +87,7 @@ export default async ({ router, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: 'Allowed format: 2d6',
+    message: t('validation.hit_dice'),
   });
 
   // Validate url input
@@ -95,7 +98,7 @@ export default async ({ router, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: '{_field_} must be a valid URL',
+    message: (field) => t('validation.url', {field: field}),
   });
 
   extend('audio', {
@@ -112,12 +115,12 @@ export default async ({ router, Vue }) => {
         return value.match(spotify_expr);
       } return false;
     },
-    message: '{_field_} must be a valid URL or URI',
+    message: (field) => t('validation.audio', {field: field}),
   });
 
   // Check if variable used in a description, exists
   extend('variable_check', {
-    message: field => `The ${field.toLowerCase()} contains undefined variables.`,
+    message: t('validation.variable_check', {field: field.toLowerCase()}),
     validate: (value, variables) => {
       let regexpr = /\[(\w+)\]/g;
       let text_vars = value.match(regexpr, "$1");
@@ -133,7 +136,7 @@ export default async ({ router, Vue }) => {
   });
 
   extend('json', {
-    message: "This field contains invalid JSON",
+    message: t('validation.json'),
     validate: (value) => {
       try {
         JSON.parse(value);
@@ -146,7 +149,7 @@ export default async ({ router, Vue }) => {
   });
 
   extend('username', {
-    message: "This usename has already been taken",
+    message: t('validation.username'),
     validate: async (value) => {
       let username_ref = db.ref(`search_users`).orderByChild('username').equalTo(value.toLowerCase());
   

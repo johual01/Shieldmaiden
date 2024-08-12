@@ -1,0 +1,7 @@
+{
+    "character.starting_hp": "<p>Your main class starts with the highest roll of your <em>Hit Dice</em> ({{hit_dice}}) plus your <em>Constitution</em> modifier ({{modifier}}) at first level. (pbp 12)</p>",
+    "character.after_level_up_hp": "<p>For each level after, {{fixed_roll}} Hit Die plus your <em>Constitution</em> modifier (minimum of 1) is added to the hit point maximum. (phb 15)</p>",
+    "character.level_up_hp": "<p>For each level {{fixed_roll}} Hit Die plus your <em>Constitution</em> modifier (minimum of 1) is added to the hit point maximum. (phb 15)</p>",
+    "character.average_fixed_hp_roll": "the average of the",
+    "character.hp_roll": "the roll of a"
+}

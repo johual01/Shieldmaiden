@@ -7,6 +7,9 @@ import {
 } from "src/utils/characterConstants";
 import { calc_dice_average, calc_mod } from "src/utils/generalFunctions";
 import { skills } from "src/utils/generalConstants";
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 export class Character {
 	general = {
@@ -208,9 +211,7 @@ export class Character {
 			hp: 0,
 			info:
 				classIndex == 0
-					? `<p>Your main class starts with the highest roll of your <em>Hit Dice</em> (${hit_dice}) plus your <em>Constitution</em> modifier (${calc_mod(
-							con
-					  )}) at first level. (pbp 12)</p>`
+					? t('character.total_hp', { hit_dice: hit_dice, modifier: calc_mod(con) })
 					: "",
 		};
 
@@ -246,25 +247,22 @@ export class Character {
 		}
 
 		// Setup info about the total HP
-		let fixed_roll = "the average of the";
-		if (this.hit_point_type === "rolled") {
-			fixed_roll = "the roll of a";
-		}
+		let fixed_roll = this.hit_point_type === "rolled" ? t('character.average_hp_fixed_roll') : t('character.hp_fixed_roll');
 		total_hp.info +=
 			classIndex == 0
-				? `<p>For each level after, ${fixed_roll} Hit Die plus your <em>Constitution</em> modifier (minimum of 1) is added to the hit point maximum. (phb 15)</p>`
-				: `<p>For each level ${fixed_roll} Hit Die plus your <em>Constitution</em> modifier (minimum of 1) is added to the hit point maximum. (phb 15)</p>`;
+				? t('after_level_up_hp', { fixed_roll: fixed_roll })
+				: t('level_up_hp', { fixed_roll: fixed_roll });
 
 		if (classIndex == 0)
-			total_hp.info += `Starting: <b>${hit_dice} + ${calc_mod(con)} = ${
+			total_hp.info += `${t('starting_capitalized')}: <b>${hit_dice} + ${calc_mod(con)} = ${
 				hit_dice + calc_mod(con)
 			}</b><br/>`;
 		if (this.hit_point_type === "rolled")
-			total_hp.info += `Rolled ${total_rolled}d${hit_dice}: <b>${this.total_rolled_hp(
+			total_hp.info += `${t('rolled_capitalized')} ${total_rolled}d${hit_dice}: <b>${this.total_rolled_hp(
 				classIndex
 			)}</b>`;
 		else
-			total_hp.info += `${total_rolled} average hit dice: (${calc_dice_average(
+			total_hp.info += `${total_rolled} ${t('average_hit_dice')}: (${calc_dice_average(
 				hit_dice
 			)} + ${calc_mod(con)}) x ${total_rolled} = <b>${
 				(calc_dice_average(hit_dice) + calc_mod(con)) * total_rolled
