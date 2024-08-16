@@ -74,7 +74,7 @@ export default {
 	},
 	async created() {
 		const char = await this.get_character({ uid: this.userId, id: this.characterId });
-		this.character = new Character(char);
+		this.character = new Character(char, this.$t);
 		this.character_copy = JSON.parse(JSON.stringify(this.character));
 		this.computed_character = new ComputedCharacter(this.character);
 
@@ -114,7 +114,7 @@ export default {
 	beforeRouteUpdate(to, from, next) {
 		// Reset unsaved changes when the route is updated
 		if (JSON.stringify(this.character) !== JSON.stringify(this.character_copy)) {
-			this.character = new Character(this.character_copy);
+			this.character = new Character(this.character_copy, this.$t);
 		}
 		next();
 	},

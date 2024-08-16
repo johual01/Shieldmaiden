@@ -1,48 +1,46 @@
 import { db } from 'src/firebase';
 import { extend, ValidationObserver,  ValidationProvider } from 'vee-validate';
 import { required, length, max, min, max_value, min_value, alpha_dash, numeric, alpha_num, email, confirmed} from "vee-validate/dist/rules";
-import { useI18n } from 'vue-i18n'
+import { i18n } from './i18n';
 
-const { t } = useI18n()
-
-export default async ({ _, Vue }) => {
+export default async ({ Vue }) => {
   Vue.component('ValidationProvider', ValidationProvider);
   Vue.component('ValidationObserver', ValidationObserver);
 
   extend("required", {
     ...required,
-    message: (field) => t('validation.required', { field: field })
+    message: (field) => i18n.t('validation.required', { field: field })
   });
   extend("max", {
     ...max,
-    message: (field, params) => t('validation.max', {field: field, length: params.length})
+    message: (field, params) => i18n.t('validation.max', {field: field, length: params.length})
   });
   extend("max_value", {
     ...max_value,
-    message: (field, params) => t('validation.max_value', {field: field, max: params.max})
+    message: (field, params) => i18n.t('validation.max_value', {field: field, max: params.max})
   });
   extend("min", {
     ...min,
-    message: (field, params) => t('validation.min', {field: field, length: params.length})
+    message: (field, params) => i18n.t('validation.min', {field: field, length: params.length})
   });
   extend("min_value", {
     ...min_value,
-    message: (field, params) => t('validation.min_value', {field: field, min: params.min})
+    message: (field, params) => i18n.t('validation.min_value', {field: field, min: params.min})
   });
   extend('length', length);
   extend('alpha_dash', {
     ...alpha_dash,
-    message: (field) => t('validation.alpha_dash', {field: field})
+    message: (field) => i18n.t('validation.alpha_dash', {field: field})
   });
   extend("numeric", numeric);
   extend('alpha_num', {
     ...alpha_num,
-    message: (field) => t('validation.alpha_num', {field: field})
+    message: (field) => i18n.t('validation.alpha_num', {field: field})
   });
 
   extend("email", {
     ...email,
-    message: (field) => t('validation.email', {field: field})
+    message: (field) => i18n.t('validation.email', {field: field})
   });
 
   // Value is same as other field
@@ -54,7 +52,7 @@ export default async ({ _, Vue }) => {
       return Number(minimum) <= value && Number(maximum) >= value;
     },
     params: ["minimum", "maximum"],
-    message: (_, params) => t('validation.between', {minimum: params.minimum, maximum: params.maximum})
+    message: (_, params) => i18n.t('validation.between', {minimum: params.minimum, maximum: params.maximum})
   });
 
   // Recharge 1, 5-6 or rest
@@ -65,7 +63,7 @@ export default async ({ _, Vue }) => {
         return regex.test(value) || value === "rest";
       } return false;
     },
-    message: 'Allowed format: 6, 5-6 or rest',
+    message: i18n.t('validation.recharge'),
   });
 
   // Range
@@ -76,7 +74,7 @@ export default async ({ _, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: t('validation.range'),
+    message: i18n.t('validation.range'),
   });
 
   // Hit dice
@@ -87,7 +85,7 @@ export default async ({ _, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: t('validation.hit_dice'),
+    message: i18n.t('validation.hit_dice'),
   });
 
   // Validate url input
@@ -98,7 +96,7 @@ export default async ({ _, Vue }) => {
         return regex.test(value);
       } return false;
     },
-    message: (field) => t('validation.url', {field: field}),
+    message: (field) => i18n.t('validation.url', {field: field}),
   });
 
   extend('audio', {
@@ -115,12 +113,12 @@ export default async ({ _, Vue }) => {
         return value.match(spotify_expr);
       } return false;
     },
-    message: (field) => t('validation.audio', {field: field}),
+    message: (field) => i18n.t('validation.audio', {field: field}),
   });
 
   // Check if variable used in a description, exists
   extend('variable_check', {
-    message: t('validation.variable_check', {field: field.toLowerCase()}),
+    message: (field) => i18n.t('validation.variable_check', {field: field.toLowerCase()}),
     validate: (value, variables) => {
       let regexpr = /\[(\w+)\]/g;
       let text_vars = value.match(regexpr, "$1");
@@ -136,7 +134,7 @@ export default async ({ _, Vue }) => {
   });
 
   extend('json', {
-    message: t('validation.json'),
+    message: i18n.t('validation.json'),
     validate: (value) => {
       try {
         JSON.parse(value);
@@ -149,7 +147,7 @@ export default async ({ _, Vue }) => {
   });
 
   extend('username', {
-    message: t('validation.username'),
+    message: i18n.t('validation.username'),
     validate: async (value) => {
       let username_ref = db.ref(`search_users`).orderByChild('username').equalTo(value.toLowerCase());
   

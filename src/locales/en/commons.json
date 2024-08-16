@@ -2,5 +2,9 @@
     "starting": "starting",
     "starting_capitalized": "Starting",
     "rolled_capitalized": "Rolled",
-    "average_hit_dice": "average hit dice"
+    "average_hit_dice": "average hit dice",
+    "no_internet_connection": "No internet connection",
+    "nothing_to_see_here": "Nothing to see here",
+    "no_announcements": "No announcements",
+    "title": "D&D Combat Tracker - Advanced initiative tracker for D&D 5e"
 }

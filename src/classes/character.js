@@ -7,9 +7,6 @@ import {
 } from "src/utils/characterConstants";
 import { calc_dice_average, calc_mod } from "src/utils/generalFunctions";
 import { skills } from "src/utils/generalConstants";
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
 
 export class Character {
 	general = {
@@ -40,7 +37,7 @@ export class Character {
 	};
 	modifiers = [];
 
-	constructor(character) {
+	constructor(character, i18n) {
 		this.general = character.general || this.general;
 		this.general.advancement = character.general.advancement || "milestone";
 		this.general.hit_point_type = character.general.hit_point_type || "fixed";
@@ -61,6 +58,7 @@ export class Character {
 		this._race.traits = character.race && character.race.traits ? character.race.traits : [];
 		this.abilities = character.abilities || {};
 		this.modifiers = character.modifiers || [];
+		this.t = i18n; // Translation function from i18n
 	}
 
 	// GENERAL
@@ -211,7 +209,7 @@ export class Character {
 			hp: 0,
 			info:
 				classIndex == 0
-					? t('character.total_hp', { hit_dice: hit_dice, modifier: calc_mod(con) })
+					? this.t('character.total_hp', { hit_dice: hit_dice, modifier: calc_mod(con) })
 					: "",
 		};
 
@@ -247,11 +245,11 @@ export class Character {
 		}
 
 		// Setup info about the total HP
-		let fixed_roll = this.hit_point_type === "rolled" ? t('character.average_hp_fixed_roll') : t('character.hp_fixed_roll');
+		let fixed_roll = this.hit_point_type === "rolled" ? this.t('character.average_hp_fixed_roll') : this.t('character.hp_fixed_roll');
 		total_hp.info +=
 			classIndex == 0
-				? t('after_level_up_hp', { fixed_roll: fixed_roll })
-				: t('level_up_hp', { fixed_roll: fixed_roll });
+				? this.t('after_level_up_hp', { fixed_roll: fixed_roll })
+				: this.t('level_up_hp', { fixed_roll: fixed_roll });
 
 		if (classIndex == 0)
 			total_hp.info += `${t('starting_capitalized')}: <b>${hit_dice} + ${calc_mod(con)} = ${
@@ -571,7 +569,7 @@ export class ComputedCharacter {
 	 * @param {object} character
 	 **/
 	compute_character(character) {
-		const base_character = new Character(JSON.parse(JSON.stringify(character)));
+		const base_character = new Character(JSON.parse(JSON.stringify(character)), this.t);
 		this.character_name = base_character.character_name;
 		this.avatar = base_character.avatar;
 		this.race = base_character.race;

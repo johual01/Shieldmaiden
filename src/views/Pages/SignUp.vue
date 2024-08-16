@@ -2,23 +2,23 @@
 	<div class="login-container">
 		<div id="login">
 			<img class="logo" src="../../assets/_img/logo/logo-cyan.svg" alt="Shieldmaiden" />
-			<h2 class="mt-3">Create an account</h2>
+			<h2 class="mt-3">Crea una cuenta</h2>
 			<p v-if="error" class="red">
 				<i aria-hidden="true" class="fas fa-exclamation-triangle"></i> {{ error }}
 			</p>
 
-			<button class="google mt-2" @click="googleSignIn()">Sign up with Google</button>
+			<button class="google mt-2" @click="googleSignIn()">Inicia sesión con Google</button>
 			<hr />
 			<ValidationObserver v-slot="{ handleSubmit, valid }">
 				<q-form v-if="!loading" @submit="handleSubmit(signUp)">
-					<h4 class="text-center neutral-2">With email and password</h4>
+					<h4 class="text-center neutral-2">O con un correo y contraseña</h4>
 
 					<hk-input
 						v-model="email"
 						autocomplete="username"
 						class="email mb-2"
 						type="email"
-						label="Email"
+						label="Correo"
 						name="Email"
 						rules="required|email"
 					/>
@@ -26,7 +26,7 @@
 						v-model="username"
 						type="text"
 						class="mb-2"
-						label="Username"
+						label="Usuario"
 						name="Username"
 						maxlength="20"
 						minlength="3"
@@ -37,7 +37,7 @@
 						autocomplete="new-password"
 						class="mb-2"
 						type="password"
-						placeholder="Password"
+						placeholder="Contraseña"
 						v-model="password"
 						name="password"
 						rules="required"
@@ -47,7 +47,7 @@
 						autocomplete="new-password"
 						class="mb-2"
 						type="password"
-						placeholder="Confirm Password"
+						placeholder="Confirmar contraseña"
 						v-model="confirm_password"
 						rules="required|confirmed:password"
 						name="Confirm Password"
@@ -55,14 +55,14 @@
 
 					<q-btn
 						no-caps
-						label="Sign Up"
+						label="Registrarse"
 						class="full-width"
 						color="primary"
 						type="submit"
 						:disabled="!valid"
 					/>
 				</q-form>
-				<hk-loader v-else prefix="Signing you up" noBackground />
+				<hk-loader v-else prefix="Registrarte" noBackground />
 			</ValidationObserver>
 		</div>
 	</div>

@@ -2,5 +2,9 @@
     "starting": "inicio",
     "starting_capitalized": "Inicio",
     "rolled_capitalized": "Tirada",
-    "average_hit_dice": "puntos de golpe promedio"
+    "average_hit_dice": "puntos de golpe promedio",
+    "no_internet_connection": "No hay conexión a internet",
+    "nothing_to_see_here": "Ningun anuncio disponible",
+    "no_announcements": "No hay anuncios disponibles",
+    "title": "D&D Combat Tracker - Seguimiento de combate para D&D 5e"
 }

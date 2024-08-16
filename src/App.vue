@@ -3,7 +3,7 @@
 		<div>
 			<nav-main :maintenance="maintenance" />
 			<div class="offline" v-if="connection === 'offline'">
-				<i aria-hidden="true" class="fas fa-wifi-slash mr-1"></i> No internet connection
+				<i aria-hidden="true" class="fas fa-wifi-slash mr-1"></i> {{$t('no_internet_connection')}}
 			</div>
 			<div v-if="!maintenance" :class="{ hasSide: $route.meta.sidebar !== false }">
 				<Sidebar
@@ -42,11 +42,11 @@
 				<template v-slot:avatar>
 					<q-icon name="info" />
 				</template>
-				<h3 class="mb-1">Nothing to see here</h3>
+				<h3 class="mb-1">{{ $t('nothing_to_see_here') }}</h3>
 				<p>
 					<strong>{{ makeDate("2022-02-18T09:00:00.000Z", true) }}</strong>
 				</p>
-				<p>No announcement</p>
+				<p>{{  $t('no_announcements') }}</p>
 				<template v-slot:action>
 					<q-btn flat icon="close" @click="closeAnnouncement()" no-caps />
 				</template>
@@ -210,7 +210,7 @@ export default {
 			announcement_cookie: false,
 			broadcast: undefined,
 			maintenance: false,
-			connection: process.browser && !navigator.onLine ? "offline" : "online",
+			connection: process.browser && !navigator.onLine ? "offline" : "online"
 		};
 	},
 	watch: {
@@ -323,7 +323,7 @@ export default {
 
 			document.cookie = `announcement=true; max-age=${max_age}; path=/`;
 			this.announcement = false;
-		},
+		}
 	},
 };
 </script>
