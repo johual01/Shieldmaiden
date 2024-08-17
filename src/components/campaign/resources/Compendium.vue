@@ -49,7 +49,7 @@
 				<li v-for="(result, index) in searchResults" :key="index" class="truncate">
 					<a @click="show = result['_id']">
 						{{ result.name.capitalizeEach() }}
-						<q-tooltip anchor="top middle" self="center middle"> Show info </q-tooltip>
+						<q-tooltip anchor="top middle" self="center middle"> {{ $t('show_info_capitalized') }} </q-tooltip>
 					</a>
 				</li>
 			</ul>
@@ -58,7 +58,7 @@
 			<div v-if="show">
 				<a class="btn btn-clear btn-sm mb-2" @click="show = undefined">
 					<i aria-hidden="true" class="fas fa-times red mr-1" />
-					Close
+					{{ $t('close') }}
 				</a>
 				<ViewMonster v-if="current === 'monsters'" :id="show" />
 				<Spell v-if="current === 'spells'" :id="show" />
@@ -86,10 +86,10 @@ export default {
 	data() {
 		return {
 			types: [
-				{ name: "monsters", label: "Monsters", icon: "fas fa-dragon" },
-				{ name: "items", label: "Items", icon: "fas fa-treasure-chest" },
-				{ name: "spells", label: "Spells", icon: "fas fa-wand-magic" },
-				{ name: "conditions", label: "Conditions", icon: "fas fa-flame" },
+				{ name: "monsters", label: this.$t('monster_plural_capitalized'), icon: "fas fa-dragon" },
+				{ name: "items", label: this.$t('item_plural_capitalized'), icon: "fas fa-treasure-chest" },
+				{ name: "spells", label: this.$t('spell_plural_capitalized'), icon: "fas fa-wand-magic" },
+				{ name: "conditions", label: this.$t('condition_plural_capitalized'), icon: "fas fa-flame" },
 			],
 			current: "monsters",
 			show: undefined,
@@ -131,7 +131,7 @@ export default {
 
 			data({ query: { search: this.search } }).then((results) => {
 				if (results.meta.count === 0) {
-					this.noResult = 'No results for "' + this.search + '"';
+					this.noResult = this.$t('no_results_for') + ' "' + this.search + '"';
 				} else {
 					this.noResult = "";
 					this.searchResults = results.results;

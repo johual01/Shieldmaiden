@@ -11,12 +11,12 @@
 					{{ user.username }}
 				</span>
 				<router-link :to="'/user/' + id">
-					<div class="live" :class="{ active: broadcast.live }">Live</div>
+					<div class="live" :class="{ active: broadcast.live }">{{ $t('live_capitalized') }}</div>
 				</router-link>
 			</div>
 			<div class="card-body">
 				<p>{{ user.email }}</p>
-				<p v-if="user.patreon_email">patron: {{ user.patreon_email }}</p>
+				<p v-if="user.patreon_email">{{ $t('patron') }}: {{ user.patreon_email }}</p>
 				<p>
 					<i aria-hidden="true" class="neutral-3">{{ id }}</i>
 				</p>
@@ -26,23 +26,23 @@
 		<hk-card-deck class="mb-3">
 			<hk-card header="DM Data">
 				<div class="card-body data">
-					<span class="type">Campaigns: </span>
+					<span class="type"> {{ $t('campaigns_plural_capitalized') }}: </span>
 					<template v-if="campaigns['.value']">{{ campaigns[".value"] }}</template>
 					<template v-else>0</template><br />
 
-					<span class="type">Players: </span>
+					<span class="type">{{ $t('player_plural_capitalized') }}: </span>
 					<template v-if="players['.value']">{{ players[".value"] }}</template>
 					<template v-else>0</template><br />
 
-					<span class="type">NPC's: </span>
+					<span class="type"> {{ $t('npc_plural_capitalized') }}: </span>
 					<template v-if="npcs['.value']">{{ npcs[".value"] }}</template>
 					<template v-else>0</template><br />
 
-					<span class="type">Items: </span>
+					<span class="type"> {{ $t('item_plural_capitalized') }}: </span>
 					<template v-if="items['.value']">{{ items[".value"] }}</template>
 					<template v-else>0</template><br />
 
-					<span class="type">Reminders: </span>
+					<span class="type"> {{ $t('reminder_plural_capitalized') }}: </span>
 					<template v-if="reminders['.value']">{{ reminders[".value"] }}</template>
 					<template v-else>0</template><br />
 				</div>
@@ -63,7 +63,7 @@
 							{{ character.character_name }}
 						</li>
 					</ul>
-					<div v-else class="loader"><span>Loading characters...</span></div>
+					<div v-else class="loader"><span>{{ $t("components.admin.user.loading") }}</span></div>
 				</div>
 			</hk-card>
 		</hk-card-deck>
@@ -82,7 +82,7 @@
 					@input="setContribute($event)"
 				/>
 
-				<h3>Link a Patreon account</h3>
+				<h3>{{ $t('components.admin.user.link_patreon') }}</h3>
 
 				<q-input
 					:dark="$store.getters.theme === 'dark'"
@@ -93,7 +93,7 @@
 					v-model="user.patreon_email"
 				>
 					<template #after>
-						<a class="btn" @click="setPatronEmail()">Save</a>
+						<a class="btn" @click="setPatronEmail()">{{ $t('save_capitalized') }}</a>
 					</template>
 				</q-input>
 			</div>
@@ -101,7 +101,7 @@
 
 		<hk-card header="Voucher">
 			<div class="card-body">
-				<h3>Gift user a subscription</h3>
+				<h3>{{ $t('components.admin.user.gift_user_suscription') }}</h3>
 				<ValidationObserver v-slot="{ valid }">
 					<q-form>
 						<q-select
@@ -154,7 +154,7 @@
 							class="mb-2"
 							autogrow
 						/>
-						<a class="btn" @click="setVoucher(valid)">Save</a>
+						<a class="btn" @click="setVoucher(valid)">{{ $t('save_capitalized') }}</a>
 					</q-form>
 				</ValidationObserver>
 			</div>
@@ -165,9 +165,11 @@
 <script>
 import { db } from "src/firebase";
 import { legacy_tiers } from "src/utils/generalConstants";
+import { general } from 'src/mixins/general.js';
 
 export default {
 	name: "AdminUser",
+	mixins: [general],
 	props: ["id"],
 	data() {
 		return {
@@ -180,14 +182,18 @@ export default {
 			duration_options: [
 				{
 					value: "date",
-					label: "Till date",
+					label: this.$t("components.admin.user.duration_options.date_label"),
 				},
 				{
 					value: "infinite",
-					label: "Till cancelled",
+					label: this.$t("components.admin.user.duration_options.infinite_label"),
 				},
 			],
-			contributes: ["monsters", "spells", "character-builder"],
+			contributes: [
+				{ value: "monsters", label: this.$t('monster_plural_capitalized') },
+				{ value: "spells", label: this.$t('spell_plural_capitalized') },
+				{ value: "character-builder", label: this.$t('character_builder') }
+			],
 		};
 	},
 	firebase() {
@@ -289,7 +295,7 @@ export default {
 					}
 					db.ref(`users/${this.id}/voucher`).set(this.voucher);
 				}
-				this.$snotify.success("Voucher given.", "Voucher set!", {
+				this.$snotify.success(this.$t('components.admin.user.voucher_title'), this.$t("components.admin.user.voucher_message"), {
 					position: "rightTop",
 				});
 			}
@@ -300,7 +306,7 @@ export default {
 			} else {
 				db.ref(`users/${this.id}/patreon_email`).set(this.user.patreon_email);
 			}
-			this.$snotify.success("Patreon email linked.", "Saved!", {
+			this.$snotify.success(this.$t("components.admin.user.patreon_linked_title"), this.$t("components.admin.user.patreon_linked_message"), {
 				position: "rightTop",
 			});
 		},
@@ -308,36 +314,10 @@ export default {
 			value = !value ? null : value;
 			db.ref(`users/${this.id}/contribute`).set(value);
 
-			this.$snotify.success("Contribute set.", "Saved!", {
+			this.$snotify.success(this.$t("components.admin.user.patreon_contribute_title"), this.$t("components.admin.user.patreon_contribute_message"), {
 				position: "rightTop",
 			});
-		},
-		makeDate(input) {
-			let monthNames = [
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December",
-			];
-
-			let d = new Date(input);
-			let hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
-			let minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
-			let seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
-
-			let time = hours + ":" + minutes + ":" + seconds;
-			let date = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
-
-			return date + " - " + time;
-		},
+		}
 	},
 };
 </script>

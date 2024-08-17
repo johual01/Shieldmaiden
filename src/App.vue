@@ -109,13 +109,12 @@ export default {
 			title: {
 				name: "title",
 				content:
-					this.$route.meta.title || "D&D Combat Tracker - Advanced initiative tracker for D&D 5e",
+					this.$route.meta.title || this.$t('page_title'),
 			},
 			description: {
 				name: "description",
 				content:
-					this.$route.meta.description ||
-					"The ultimate D&D 5e DM companion app. Manage encounters, track combat & health bars, import D&D Beyond characters, and much more. Use Shieldmaiden for free now!",
+					this.$route.meta.description || this.$t('page_description'),
 			},
 
 			// TWITTER
@@ -126,13 +125,12 @@ export default {
 			twitterTitle: {
 				name: "twitter:title",
 				content:
-					this.$route.meta.title || "D&D Combat Tracker - Advanced initiative tracker for D&D 5e",
+					this.$route.meta.title || this.$t('page_title'),
 			},
 			twitterDescription: {
 				name: "twitter:description",
 				content:
-					this.$route.meta.description ||
-					"The ultimate D&D 5e DM companion app. Manage encounters, track combat & health bars, import D&D Beyond characters, and much more. Use Shieldmaiden for free now!",
+					this.$route.meta.description || this.$t('page_description'),
 			},
 			twitterImage: {
 				name: "twitter:image",
@@ -147,13 +145,12 @@ export default {
 			ogTitle: {
 				property: "og:title",
 				content:
-					this.$route.meta.title || "D&D Combat Tracker - Advanced initiative tracker for D&D 5e",
+					this.$route.meta.title || this.$t('page_title'),
 			},
 			ogDescription: {
 				property: "og:description",
 				content:
-					this.$route.meta.description ||
-					"The ultimate D&D 5e DM companion app. Manage encounters, track combat & health bars, import D&D Beyond characters, and much more. Use Shieldmaiden for free now!",
+					this.$route.meta.description || this.$t('page_description'),
 			},
 			ogSiteName: {
 				property: "og:site_name",
@@ -191,7 +188,7 @@ export default {
 
 		return {
 			title:
-				this.$route.meta.title || "D&D Combat Tracker - Advanced initiative tracker for D&D 5e",
+				this.$route.meta.title || this.$t('page_title'),
 			titleTemplate: (title) => `${title} | Shieldmaiden`,
 			link: {
 				canonical: {
@@ -227,22 +224,22 @@ export default {
 					Object.keys(this.storeBroadcast).length > 0
 				) {
 					this.$q.notify({
-						message: "Broadcast interrupted",
-						caption: "Would you like to continue your broadcast?",
+						message: this.$t('broadcast_message'),
+						caption: this.$t('broadcast_caption'),
 						color: "red",
 						position: "top",
 						timeout: 0,
 						icon: "far fa-dot-circle",
 						actions: [
 							{
-								label: "Yes",
+								label: this.$t('yes_capitalized'),
 								color: "white",
 								handler: () => {
 									db.ref(`broadcast/${this.user.uid}`).set(oldVal);
 								},
 							},
 							{
-								label: "No",
+								label: this.$t('no_capitalized'),
 								color: "white",
 								handler: () => {
 									this.setLive({ campaign_id: oldVal.live });

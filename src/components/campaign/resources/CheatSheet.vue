@@ -3,7 +3,7 @@
 		<hk-input v-model="query" :dense="!compendium" label="Search" class="mb-2" clearable>
 			<q-icon slot="prepend" name="search" />
 		</hk-input>
-		<p class="red" v-if="query && !sheet.length">Nothing found</p>
+		<p class="red" v-if="query && !sheet.length">{{ $t('nothing_found') }}</p>
 		<q-tabs
 			v-if="!query && !isMobile"
 			v-model="tab_type"
@@ -64,23 +64,23 @@ export default {
 			types: [
 				{
 					name: "action",
-					label: "Action",
+					label: this.$t('action_capitalized'),
 				},
 				{
 					name: "bonus_action",
-					label: "Bonus Action",
+					label: this.$t('bonus_action_capitalized'),
 				},
 				{
 					name: "reaction",
-					label: "Reaction",
+					label: this.$t('reaction_capitalized'),
 				},
 				{
 					name: "movement",
-					label: "Movement",
+					label: this.$t('movement_capitalized'),
 				},
 				{
 					name: "environment",
-					label: "Environment",
+					label: this.$t('environment_capitalized'),
 				},
 			],
 			cheatSheet: rules,

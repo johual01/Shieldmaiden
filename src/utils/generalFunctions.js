@@ -1,6 +1,7 @@
 import numeral from "numeral";
 import { character_sync_id } from "./generalConstants";
 import _ from "lodash";
+import { i18n } from '../boot/i18n';
 
 /**
  * Calculate the average value of given dice
@@ -116,10 +117,14 @@ export function makeDate(input, showTime = false, short = false) {
 	let time = hours + ":" + minutes;
 	let date = short
 		? d.getDate() + "-" + parseInt(d.getMonth() + 1) + "-" + d.getFullYear()
-		: monthNames[d.getMonth()] + " " + numeral(d.getDate()).format("0o") + " " + d.getFullYear();
+		: (
+			i18n.locale == 'es' ?
+			numeral(d.getDate()).format("0o") + " de " + monthNames[d.getMonth()] + " del " + d.getFullYear() :
+			monthNames[d.getMonth()] + " " + numeral(d.getDate()).format("0o") + " " + d.getFullYear() 
+		);
 
 	if (showTime) {
-		return date + " at " + time;
+		return date + (i18n.locale == 'es' ? " a las " : " at ") + time;
 	}
 	return date;
 }

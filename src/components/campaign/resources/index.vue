@@ -48,17 +48,17 @@ export default {
 			tabs: [
 				{
 					name: "cheat_sheet",
-					label: "Cheat Sheet",
+					label: this.$t('cheat_sheet_capitalized'),
 					icon: "fas fa-file-search",
 				},
 				{
 					name: "compendium",
-					label: "Compendium",
+					label: this.$t('compendium_capitalized'),
 					icon: "fas fa-book-spells",
 				},
 				{
 					name: "notes",
-					label: "Notes",
+					label: this.$t('note_plural_capitalized'),
 					icon: "fas fa-sticky-note",
 				},
 			],

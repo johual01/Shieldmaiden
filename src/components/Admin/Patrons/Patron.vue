@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="loading" class="loader"> <span>Loading patron....</span></div>
+		<div v-if="loading" class="loader"> <span>{{ $t('components.admin.patrons.loading') }}</span></div>
 
 		<h1 class="d-flex justify-content-between">
 			{{ patron.full_name }}
@@ -8,13 +8,13 @@
 				<a v-if="!edit" @click="setEdit(true)" class="mx-2">
 					<i aria-hidden="true" class="fas fa-pencil-alt"></i>
 					<q-tooltip anchor="top middle" self="center middle">
-						Edit
+						{{ $t('edit_capitalized') }}
 					</q-tooltip>
 				</a>
 				<a v-else @click="setEdit(false)" class="mx-2">
 					<i aria-hidden="true" class="fas fa-times"></i>
 					<q-tooltip anchor="top middle" self="center middle">
-						Cancel
+						{{ $t('cancel_capitalized') }}
 					</q-tooltip>
 				</a>
 			</span>
@@ -24,7 +24,7 @@
 		<template v-if="!edit">
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Email
+					{{ $t('email_capitalized') }}
 				</div>
 				<div class="col">
 					{{ patron.email }}
@@ -33,7 +33,7 @@
 		
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Tiers
+					{{ $t('tier_plural_capitalized') }}
 				</div>
 				<div class="col">
 					<span 
@@ -50,7 +50,7 @@
 
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Last charge
+					{{ $t('components.admin.patrons.last_charge_capitalized') }}
 				</div>
 				<div class="col">
 					<span :class="{ 'red': patron.last_charge_status == 'Declined', 'green': patron.last_charge_status == 'Paid' }">{{ patron.last_charge_status }}</span>
@@ -60,7 +60,7 @@
 
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Lifetime support
+					{{ $t('components.admin.patrons.lifetime_capitalized') }}
 				</div>
 				<div class="col">
 					{{ patron.lifetime_support  / 100 | numeral('$0,0') }}
@@ -69,7 +69,7 @@
 
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Pledge start
+					{{ $t('components.admin.patrons.pledge_start_capitalized') }}
 				</div>
 				<div class="col">
 					{{ makeDate(patron.pledge_start) }}
@@ -78,14 +78,14 @@
 
 			<div class="row q-col-gutter-md mb-2">
 				<div class="col-2">
-					Pledge end
+					{{ $t('components.admin.patrons.pledge_end_capitalized') }}
 				</div>
 				<div class="col">
 					{{ makeDate(patron.pledge_end) }}
 				</div>
 			</div>
 
-			<a target="_blank" rel="noopener" :href="'https://www.patreon.com/user/creators?u='+patron['.key']">Show on Patreon</a>
+			<a target="_blank" rel="noopener" :href="'https://www.patreon.com/user/creators?u='+patron['.key']">{{ $t('components.admin.patrons.show_on_patreon') }}</a>
 		</template>
 		<EditPatron v-else :editPatron="patron" />
 	</div>

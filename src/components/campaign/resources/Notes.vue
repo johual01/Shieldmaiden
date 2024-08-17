@@ -2,7 +2,7 @@
 	<div>
 		<button class="btn btn-block bg-neutral-5 mb-2" @click="note_dialog = !note_dialog">
 			<i class="fas fa-plus green" aria-hidden="true" />
-			Add note
+			{{ $t('add') + ' ' + $t('note')}}
 		</button>
 
 		<q-list :dark="$store.getters.theme === 'dark'" class="accordion">
@@ -39,7 +39,10 @@
 			<div>
 				<ValidationObserver v-slot="{ handleSubmit, valid }">
 					<q-form @submit="handleSubmit(addNote)" greedy>
-						<hk-card header="New note" class="mb-0" :min-width="300">
+						<hk-card 
+							:header="( $t('gender') === 'true' ? $t('new_capitalized_female') : $t('new_capitalized')) + ' ' + $t('note')" 
+							class="mb-0" 
+							:min-width="300">
 							<div class="card-body">
 								<ValidationProvider
 									rules="max:100|required"
@@ -50,7 +53,7 @@
 										:dark="$store.getters.theme === 'dark'"
 										filled
 										square
-										label="Title"
+										:label="$t('title_capitalized')"
 										autocomplete="off"
 										v-model="new_note.title"
 										:error="invalid && validated"
@@ -66,7 +69,7 @@
 										:dark="$store.getters.theme === 'dark'"
 										filled
 										square
-										label="Note"
+										:label="$t('note_capitalized')"
 										autocomplete="off"
 										type="textarea"
 										v-model="new_note.description"
@@ -76,8 +79,8 @@
 								</ValidationProvider>
 							</div>
 							<div slot="footer" class="card-footer d-flex justify-content-end">
-								<q-btn v-close-popup class="mr-1" no-caps>Cancel</q-btn>
-								<q-btn color="primary" type="submit" no-caps label="Add note" :disabled="!valid" />
+								<q-btn v-close-popup class="mr-1" no-caps>{{ $t('cancel_capitalized') }}</q-btn>
+								<q-btn color="primary" type="submit" no-caps :label="$t('add_capitalized') + ' ' + $t('note')" :disabled="!valid" />
 							</div>
 						</hk-card>
 					</q-form>

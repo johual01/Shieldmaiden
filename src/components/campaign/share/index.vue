@@ -1,7 +1,7 @@
 <template>
 	<div v-if="!campaign.sharing" class="full-height">
 		<div v-if="!broadcast.live" class="not-live">
-			<p>Go live to share with your players</p>
+			<p>{{ $t('components.campaign.share.description') }}</p>
 			<div
 				class="live pointer"
 				@click="
@@ -12,7 +12,7 @@
 					})
 				"
 			>
-				Go live
+				{{ $t('components.campaign.share.title') }}
 			</div>
 		</div>
 		<q-tabs
@@ -31,7 +31,7 @@
 				:label="label"
 				:key="name"
 			>
-				<q-badge v-if="showBadge(name)" class="bg-red" floating> Active </q-badge>
+				<q-badge v-if="showBadge(name)" class="bg-red" floating> {{( $t('gender') === 'true' ? $t('active_capitalized_female') : $t('active_capitalized') )}} </q-badge>
 			</q-tab>
 		</q-tabs>
 		<q-tab-panels v-model="tab" class="bg-transparent">
@@ -39,7 +39,7 @@
 				<ValidationObserver v-slot="{ valid }">
 					<hk-input
 						v-model="background.image"
-						label="Background image"
+						:label="$t('background_image_capitalized')"
 						name="Background image"
 						rules="url"
 						class="mb-2"
@@ -57,7 +57,7 @@
 					</hk-input>
 					<hk-input
 						v-model="background.video"
-						label="Background video"
+						:label="$t('background_video_capitalized')"
 						name="Background video"
 						rules="url"
 						class="mb-2"
@@ -75,7 +75,7 @@
 					</hk-input>
 					<hk-input
 						v-model="background.youtube"
-						label="Background Youtube video"
+						:label="$t('background_youtube_video_capitalized')"
 						name="Background youtube"
 						rules="url"
 						class="mb-2"
@@ -92,13 +92,13 @@
 						<hk-icon slot="prepend" icon="fab fa-youtube" />
 					</hk-input>
 					<div class="actions">
-						<button class="btn bg-neutral-5" @click="clearBackground">Clear</button>
+						<button class="btn bg-neutral-5" @click="clearBackground">{{ $t('clear_capitalized') }}</button>
 						<button
 							class="btn"
 							@click="valid ? setBackground() : null"
 							:disabled="isEmpty(background) || !valid"
 						>
-							Set
+							{{ $t('set_capitalized') }}
 						</button>
 					</div>
 				</ValidationObserver>
@@ -108,7 +108,7 @@
 				<ValidationObserver v-slot="{ valid }">
 					<hk-input
 						v-model="share.image"
-						label="Share image"
+						:label="$t('components.campaign.share_image')"
 						name="Share image"
 						rules="url"
 						class="mb-2"
@@ -126,7 +126,7 @@
 					</hk-input>
 					<hk-input
 						v-model="share.youtube"
-						label="Share Youtube video"
+						:label="$t('components.campaign.share_youtube')"
 						name="Share Youtube video"
 						rules="url"
 						class="mb-2"
@@ -144,7 +144,7 @@
 					</hk-input>
 					<hk-input
 						v-model="share.message"
-						label="Share message"
+						:label="$t('components.campaign.share_message')"
 						name="Share message"
 						type="textarea"
 						rules="max:1000"
@@ -166,7 +166,7 @@
 							:disabled="isEmpty(share) || !valid"
 							@click="valid ? startShare() : null"
 						>
-							Share
+							{{ $t('share_capitalized') }}
 						</button>
 					</div>
 				</ValidationObserver>
@@ -176,16 +176,16 @@
 				<Weather v-model="weather" class="pb-4" :disabled="tier.price === 'Free'" />
 				<div class="actions">
 					<template v-if="tier.price !== 'Free'">
-						<button class="btn bg-neutral-5" @click="clearWeather">Clear</button>
-						<button class="btn" :disabled="isEmpty(weather)" @click="setWeather">Set</button>
+						<button class="btn bg-neutral-5" @click="clearWeather">{{ $t('clear_capitalized') }}</button>
+						<button class="btn" :disabled="isEmpty(weather)" @click="setWeather">{{ $t('set_capitalized') }}</button>
 					</template>
 					<template v-else>
 						<button v-if="!isEmpty(weather)" class="btn bg-neutral-5" @click="clearWeather">
-							Clear
+							{{ $t('clear_capitalized') }}
 						</button>
-						<router-link v-else to="/patreon" class="btn bg-patreon-red"
-							>Get a subscription</router-link
-						>
+						<router-link v-else to="/patreon" class="btn bg-patreon-red">
+							{{ $t('get_suscription_capitalized') }}
+						</router-link>
 					</template>
 				</div>
 			</q-tab-panel>
@@ -220,17 +220,17 @@ export default {
 			tabs: [
 				{
 					name: "background",
-					label: "Background",
+					label: this.$t('background_capitalized'),
 					icon: "fas fa-image",
 				},
 				{
 					name: "share",
-					label: "Share",
+					label: this.$t('share_capitalized'),
 					icon: "fas fa-share-alt",
 				},
 				{
 					name: "weather",
-					label: "Weather",
+					label: this.$t('weather_capitalized'),
 					icon: "fas fa-cloud-rain",
 				},
 			],

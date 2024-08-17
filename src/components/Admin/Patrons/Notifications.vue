@@ -10,60 +10,60 @@
 							<span>{{ notification.trigger }}</span>
 						</div>
 
-						<a @click="setShow(key)" class="mt-2">Details</a>
+						<a @click="setShow(key)" class="mt-2">{{ $t('detail_plural_capitalized') }}</a>
 						<q-slide-transition>
 							<ul v-show="show === key">
 								<li>
-									<span>Entitled Amount:</span>
+									<span>{{ $t('components.admin.patrons.entitled_amount_capitalized') }}:</span>
 									<span>{{
 										(notification.attributes.currently_entitled_amount_cents / 100)
 											| numeral("$0,0")
 									}}</span>
 								</li>
 								<li>
-									<span>Name:</span> <span>{{ notification.attributes.full_name }}</span>
+									<span>{{ $t('name_capitalized') }}:</span> <span>{{ notification.attributes.full_name }}</span>
 								</li>
 								<li>
-									<span>Email:</span> <span>{{ notification.attributes.email }}</span>
+									<span>{{ $t('email_capitalized') }}:</span> <span>{{ notification.attributes.email }}</span>
 								</li>
 								<li>
-									<span>Follower:</span> <span>{{ notification.attributes.is_follower }}</span>
+									<span>{{ $t('components.admin.patrons.follower_capitalized') }}:</span> <span>{{ notification.attributes.is_follower }}</span>
 								</li>
 								<li>
-									<span>Last charge:</span>
+									<span>{{ $t('components.admin.patrons.last_charge_capitalized') }}:</span>
 									<span>{{ makeDate(notification.attributes.last_charge_date, true) }}</span>
 								</li>
 								<li>
-									<span>Last charge status:</span>
+									<span>{{ $t('components.admin.patrons.last_charge_status_capitalized') }}:</span>
 									<span>{{ notification.attributes.last_charge_status }}</span>
 								</li>
 								<li>
-									<span>Lifetime support:</span>
+									<span>{{ $t('components.admin.patrons.lifetime_capitalized') }}:</span>
 									<span>{{
 										(notification.attributes.lifetime_support_cents / 100) | numeral("$0,0")
 									}}</span>
 								</li>
 								<li>
-									<span>Note:</span> <span>{{ notification.attributes.note }}</span>
+									<span>{{ $t('components.admin.patrons.note_capitalized') }}:</span> <span>{{ notification.attributes.note }}</span>
 								</li>
 								<li>
-									<span>Patron status:</span>
+									<span>{{ $t("components.admin.patrons.patron_capitalized") }}:</span>
 									<span>{{ notification.attributes.patron_status }}</span>
 								</li>
 								<li>
-									<span>Pledge start:</span>
+									<span>{{ $t("components.admin.patrons.pledge_start_capitalized") }}:</span>
 									<span>{{
 										makeDate(notification.attributes.pledge_relationship_start, true)
 									}}</span>
 								</li>
 								<li>
-									<span>Will pay:</span>
+									<span>{{ $t("components.admin.patrons.payment_capitalized") }}:</span>
 									<span>{{
 										(notification.attributes.will_pay_amount_cents / 100) | numeral("$0,0")
 									}}</span>
 								</li>
 								<li>
-									<span>Tier:</span>
+									<span>{{ $t("tier_capitalized") }}:</span>
 									<span v-if="notification.relationships.currently_entitled_tiers">
 										<div
 											v-for="(tier, index) in notification.relationships.currently_entitled_tiers
@@ -81,7 +81,7 @@
 							v-if="notification.trigger === 'members:pledge:delete'"
 							class="trigger bg-red white"
 						>
-							Pledge deleted
+							{{ $t('components.admin.patrons.plegde_deleted_capitalized') }}
 						</div>
 						<div
 							v-if="
@@ -90,7 +90,7 @@
 							"
 							class="trigger red"
 						>
-							Payment Declined
+							{{ $t('components.admin.patrons.payment_declined_capitalized') }}
 						</div>
 						<div
 							v-if="
@@ -99,7 +99,7 @@
 							"
 							class="trigger bg-green white"
 						>
-							New Patron
+							{{ $t('components.admin.patrons.new_patron_capitalized') }}
 						</div>
 						<div
 							v-if="
@@ -110,7 +110,7 @@
 							"
 							class="trigger green"
 						>
-							Upgrade:
+							{{ $t('components.admin.patrons.upgrade_capitalized') }}
 							<b>{{
 								(notification.attributes.currently_entitled_amount_cents / 100) | numeral("$0,0")
 							}}</b>
@@ -126,7 +126,7 @@
 							"
 							class="trigger orange"
 						>
-							Downgrade:
+							{{ $t('components.admin.patrons.downgrade_capitalized') }}
 							<b>{{
 								(notification.attributes.currently_entitled_amount_cents / 100) | numeral("$0,0")
 							}}</b>
