@@ -37,5 +37,13 @@
     "components.campaign.share.title": "Iniciar transmisión",
     "components.campaign.share_image": "Compartir imagen",
     "components.campaign.share_youtube": "Compartir video de youtube",
-    "components.campaign.share_message": "Compartir mensaje"
+    "components.campaign.share_message": "Compartir mensaje",
+    "components.campaign.currently_sharing": "Transmisión activa",
+    "components.campaign.stop_sharing": "Detener transmisión",
+    "components.campaign.sharing_youtube": "Reproductor de video de YouTube",
+    "components.campaign.custom_links": "enlaces personalizados",
+    "components.campaign.add_to_soundboard": "Agregar a tu tablero de sonidos",
+    "components.campaign.different_campaign": "Campaña diferente",
+    "components.campaign.remove_from_campaign": "Eliminar de la campaña",
+    "components.campaign.not_players_in_campaign": "There are no players in this campaign yet."
 }

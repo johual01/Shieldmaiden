@@ -37,5 +37,13 @@
     "components.campaign.share.title": "Go live",
     "components.campaign.share_image": "Share image",
     "components.campaign.share_youtube": "Share Youtube video",
-    "components.campaign.share_message": "Share message"
+    "components.campaign.share_message": "Share message",
+    "components.campaign.currently_sharing": "Currently sharing",
+    "components.campaign.stop_sharing": "Stop sharing",
+    "components.campaign.sharing_youtube": "YouTube video player",
+    "components.campaign.custom_links": "custom links",
+    "components.campaign.add_to_soundboard": "Add to your soundboard",
+    "components.campaign.different_campaign": "Different Campaign",
+    "components.campaign.remove_from_campaign": "Remove from campaign",
+    "components.campaign.not_players_in_campaign": "There are no players in this campaign yet."    
 }

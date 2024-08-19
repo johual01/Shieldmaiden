@@ -1,17 +1,17 @@
 <template>
 	<div class="currently-sharing">
 		<div class="currently-sharing__content">
-			<h2 class="text-shadow">Currently sharing</h2>
+			<h2 class="text-shadow">{{ $t('components.campaign.currently_sharing') }}</h2>
 			<button class="btn btn-lg bg-neutral-5" @click="$emit('stop')">
 				<i class="fas fa-times mr-2" aria-hidden="true" />
-				Stop sharing
+				{{ $t('components.campaign.stop_sharing') }}
 			</button>
 		</div>
 
 		<iframe
 			v-if="provided_campaign.campaign.sharing.youtube"
 			:src="`${provided_campaign.campaign.sharing.youtube}`"
-			title="YouTube video player"
+			:title="$t('components.campaign.sharing_youtube')"
 			class="youtube-player"
 		/>
 		<img

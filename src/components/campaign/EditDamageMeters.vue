@@ -1,24 +1,24 @@
 <template>
 	<div v-if="!loading">
 		<h2 class="d-flex justify-content-between items-center">
-			Damage meters
+			{{ $t('damage_meters') }}
 			<button class="btn bg-red mb-2" @click="reset">
-				Reset all
+				{{ $t('reset_all') }}
 				<i class="fas fa-undo ml-1" aria-hidden="true" />
 			</button>
 		</h2>
-		<p>Click on a value to change it.</p>
+		<p>{{ $t('modify_value') }}</p>
 
 		<q-toggle v-model="over" label="Over damage/healing" />
 		<q-tabs v-model="current_tab" outside-arrows>
-			<q-tab v-for="tab in tabs" :key="tab" :name="tab" :label="tab" />
+			<q-tab v-for="{ value: tab, label } in tabs" :key="tab" :name="tab" :label="label" />
 		</q-tabs>
 		<q-tab-panels v-model="current_tab" class="bg-transparent" :key="over">
-			<q-tab-panel v-for="tab in tabs" :key="`panel-${tab}`" :name="tab">
-				<template v-for="type in over ? over_types : types">
+			<q-tab-panel v-for="{ type: tab, label } in tabs" :key="`panel-${tab}`" :name="tab">
+				<template v-for="{type, label: typeLabel } in over ? over_types : types">
 					<h3 :key="`header-${type}`">
 						<i class="mr-1 fas" :class="icon(type)" aria-hidden="true" />
-						{{ type.capitalize() }} {{ tab.toLowerCase() }}
+						{{ typeLabel.capitalize() }} {{ label.toLowerCase() }}
 					</h3>
 					<ul class="meters" :key="`list-${type}`">
 						<li
@@ -61,9 +61,8 @@
 			</q-tab-panel>
 		</q-tab-panels>
 		<small v-if="over">
-			<strong>Overkill</strong> is damage done to target that was at 0 hit points.<br />
-			<strong>Overhealing</strong> is healing done to a target with current hit points equal to its
-			maximum hit points.
+			<strong>{{ $t('overkill_capitalized') }}</strong> {{ $t('overkill_description') }}<br />
+			<strong>{{ $t('overhealing_capitalized') }}</strong> {{ $t('overhealing_description') }}
 		</small>
 	</div>
 </template>
@@ -83,9 +82,36 @@ export default {
 			campaign: {},
 			players: {},
 			current_tab: "Done",
-			tabs: ["Done", "Taken"],
-			types: ["damage", "healing"],
-			over_types: ["overkill", "overhealing"],
+			tabs: [
+				{
+					type: "Done",
+					label: this.$t("done_capitalized"),
+				}, 
+				{
+					type: "Taken",
+					label: this.$t("taken_capitalized"),
+				}
+			],
+			types: [
+				{
+					type: "damage",
+					label: this.$t("damage"),
+				}, 
+				{
+					type: "healing",
+					label: this.$t("healing"),
+				}
+			],
+			over_types: [
+				{
+					type: "overkill",
+					label: this.$t("overkill"),
+				}, 
+				{
+					type: "overhealing",
+					label: this.$t("overhealing"),
+				}
+			],
 		};
 	},
 	computed: {},

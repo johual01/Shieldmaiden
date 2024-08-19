@@ -1,9 +1,9 @@
 <template>
 	<div class="soundboard">
-		<hk-input v-model="search" dense label="Search" class="mb-2" clearable>
+		<hk-input v-model="search" dense :label="$t('search_capitalized')" class="mb-2" clearable>
 			<q-icon slot="prepend" name="search" />
 		</hk-input>
-		<p class="red" v-if="!filtered.length">Nothing found</p>
+		<p class="red" v-if="!filtered.length">{{ $t('nothing_found') }}</p>
 		<transition-group
 			tag="div"
 			name="board"
@@ -47,12 +47,12 @@
 
 		<div class="soundboard__actions">
 			<router-link v-if="tier.price === 'Free'" class="btn btn-block bg-patreon-red" to="/patreon">
-				Add custom links
+				{{ $t('add_capitalized') }} {{ $t('components.campaign.custom_links') }}
 			</router-link>
 			<template v-else>
 				<button class="btn btn-block bg-neutral-5" @click="add_dialog = true">
 					<hk-icon icon="fas fa-plus" class="green" />
-					Add {{ type }}
+					{{ $t('add_capitalized') }} {{ type }}
 				</button>
 				<button class="btn bg-neutral-5" @click="edit = !edit">
 					<hk-icon :icon="edit ? 'fas fa-times' : 'fas fa-pencil-alt'" />
@@ -66,7 +66,7 @@
 					<q-form @submit="handleSubmit(addLink)" greedy>
 						<hk-card :min-width="320" no-margin>
 							<div slot="header" class="card-header">
-								<span>Add to your Soundboard</span>
+								<span>{{ $t('components.campaign.add_to_soundboard') }}</span>
 								<q-btn padding="sm" size="sm" no-caps icon="fas fa-times" flat v-close-popup />
 							</div>
 							<div class="card-body">
@@ -75,7 +75,7 @@
 									v-model="add.name"
 									rules="required|max:20"
 									maxLength="21"
-									label="Name"
+									:label="$t('name_capitalized')"
 									name="Name"
 								/>
 								<hk-input
@@ -94,7 +94,7 @@
 								</div>
 							</div>
 							<div slot="footer" class="card-footer">
-								<q-btn v-close-popup class="mr-1" no-caps>Cancel</q-btn>
+								<q-btn v-close-popup class="mr-1" no-caps>{{ $t('cancel_capitalized') }}</q-btn>
 								<q-btn no-caps label="Add" color="primary" type="submit" />
 							</div>
 						</hk-card>
@@ -132,17 +132,17 @@ export default {
 			toggle: [
 				{
 					value: "ambience",
-					label: "Ambience",
+					label: this.$t("ambience_capitalized"),
 				},
 				{
 					value: "music",
-					label: "Music",
+					label: this.$t("music_capitalized"),
 				},
 			],
 			hk_links: [
 				{
 					type: "music",
-					name: "Combat",
+					name: this.$t("combat_capitalized"),
 					url: "https://www.youtube.com/watch?v=WEel3jMmGo4",
 					image: require("assets/_img/soundboard/combat_1.webp"),
 					hk: true,
@@ -150,7 +150,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Combat 2",
+					name: this.$t("combat_capitalized") + " 2",
 					url: "https://www.youtube.com/watch?v=w0sUw735gRw",
 					image: require("assets/_img/soundboard/combat_2.webp"),
 					hk: true,
@@ -158,7 +158,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Tavern",
+					name: this.$t("tavern_capitalized"),
 					url: "https://www.youtube.com/watch?v=2EFpqObW9hY",
 					image: require("assets/_img/soundboard/tavern_music.webp"),
 					hk: true,
@@ -166,7 +166,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Magical",
+					name: this.$t("magical_capitalized"),
 					url: "https://www.youtube.com/watch?v=wrmwsM00QG4",
 					image: require("assets/_img/soundboard/magical.webp"),
 					hk: true,
@@ -174,7 +174,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Mysterious",
+					name: this.$t("mysterious_capitalized"),
 					url: "https://www.youtube.com/watch?v=SA1ZM5_UFhQ",
 					image: require("assets/_img/soundboard/mysterious.webp"),
 					hk: true,
@@ -182,7 +182,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Eerie",
+					name: this.$t('eerie_capitalized'),
 					url: "https://www.youtube.com/watch?v=CDWtH8eHeEU",
 					image: require("assets/_img/soundboard/eerie_music.webp"),
 					hk: true,
@@ -190,7 +190,7 @@ export default {
 				},
 				{
 					type: "music",
-					name: "Suspense",
+					name: this.$t("suspense_capitalized"),
 					url: "https://www.youtube.com/watch?v=EApZmmYg_oQ",
 					image: require("assets/_img/soundboard/suspense.webp"),
 					hk: true,
@@ -199,7 +199,7 @@ export default {
 				// AMBIENCE
 				{
 					type: "ambience",
-					name: "Rain",
+					name: this.$t("rain_capitalized"),
 					url: "https://www.youtube.com/watch?v=fGRh_hIpDt4",
 					image: require("assets/_img/soundboard/rain.webp"),
 					hk: true,
@@ -207,7 +207,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Snow",
+					name: this.$t("snow_capitalized"),
 					url: "https://www.youtube.com/watch?v=sGkh1W5cbH4",
 					image: require("assets/_img/soundboard/snow.webp"),
 					hk: true,
@@ -215,7 +215,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Thunder",
+					name: this.$t("thunder_capitalized"),
 					url: "https://www.youtube.com/watch?v=fkFiIhDR_nc",
 					image: require("assets/_img/soundboard/thunder.webp"),
 					hk: true,
@@ -223,7 +223,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Forest by Day",
+					name: this.$t("forest_day_capitalized"),
 					url: "https://www.youtube.com/watch?v=xNN7iTA57jM",
 					image: require("assets/_img/soundboard/forest_by_day.webp"),
 					hk: true,
@@ -231,7 +231,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Forest by Night",
+					name: this.$t("forest_night_capitalized"),
 					url: "https://www.youtube.com/watch?v=ABCwX_ERUmw",
 					image: require("assets/_img/soundboard/forest_by_night.webp"),
 					hk: true,
@@ -239,7 +239,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Cave",
+					name: this.$t("cave_capitalized"),
 					url: "https://www.youtube.com/watch?v=kxqJuc1HHbg",
 					image: require("assets/_img/soundboard/cave.webp"),
 					hk: true,
@@ -247,7 +247,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Campfire",
+					name: this.$t("campfire_capitalized"),
 					url: "https://www.youtube.com/watch?v=7KFoj-SOfHs",
 					image: require("assets/_img/soundboard/campfire.webp"),
 					hk: true,
@@ -255,7 +255,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Town by Day",
+					name: this.$t("town_day_capitalized"),
 					url: "https://www.youtube.com/watch?v=WJrqwa6tMQY",
 					image: require("assets/_img/soundboard/town_by_day.webp"),
 					hk: true,
@@ -263,7 +263,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Town by Night",
+					name: this.$t("town_by_night_capitalized"),
 					url: "https://www.youtube.com/watch?v=N9ghsVSTNuI&t=711s",
 					image: require("assets/_img/soundboard/town_by_night.webp"),
 					hk: true,
@@ -271,7 +271,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Tavern",
+					name: this.$t("tavern_capitalized"),
 					url: "https://www.youtube.com/watch?v=rv3Nl-Od9YU",
 					image: require("assets/_img/soundboard/tavern.webp"),
 					hk: true,
@@ -279,7 +279,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Battlefield",
+					name: this.$t("battlefield_capitalized"),
 					url: "https://www.youtube.com/watch?v=VaKVLWZrG-4",
 					image: require("assets/_img/soundboard/battlefield.webp"),
 					hk: true,
@@ -287,7 +287,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Battle",
+					name: this.$t("battle_capitalized"),
 					url: "https://www.youtube.com/watch?v=Z98ZMt1zc94",
 					image: require("assets/_img/soundboard/battle.webp"),
 					hk: true,
@@ -295,7 +295,7 @@ export default {
 				},
 				{
 					type: "ambience",
-					name: "Eerie",
+					name: this.$t("eerie_capitalized"),
 					url: "https://www.youtube.com/watch?v=Jh9E7Cus7JA",
 					image: require("assets/_img/soundboard/eerie_ambience.webp"),
 					hk: true,

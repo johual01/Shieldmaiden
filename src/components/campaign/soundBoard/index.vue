@@ -41,12 +41,12 @@ export default {
 			tabs: [
 				{
 					name: "ambience",
-					label: "Ambience",
+					label: this.$t('ambience_capitalized'),
 					icon: "fas fa-volume",
 				},
 				{
 					name: "music",
-					label: "Music",
+					label: this.$t('music_capitalized'),
 					icon: "fas fa-music",
 				},
 			],

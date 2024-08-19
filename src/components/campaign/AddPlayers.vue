@@ -3,9 +3,9 @@
 		<!-- PLAYERS -->
 		<hk-card no-margin :min-width="320">
 			<div slot="header" class="card-header">
-				Players
+				{{ $t("player_plural_capitalized") }}
 				<a @click="players_dialog = true" class="btn btn-sm">
-					<i aria-hidden="true" class="fas fa-plus green mr-1" /> Add players
+					<i aria-hidden="true" class="fas fa-plus green mr-1" /> {{ $t("add_capitalized") + ' ' + $t("player_plural") }}
 				</a>
 			</div>
 			<div class="card-body">
@@ -28,7 +28,7 @@
 								v-if="inOtherCampaign(player.campaign_id)"
 								class="d-none d-md-inline ml-1 neutral-2"
 							>
-								<small>Different Campaign</small>
+								<small>{{ $t('components.campaign.different_campaign') }}</small>
 							</span>
 						</div>
 
@@ -36,15 +36,15 @@
 							<a class="btn btn-sm bg-neutral-5" @click="removePlayer(player)">
 								<i aria-hidden="true" class="fas fa-trash-alt"></i>
 								<q-tooltip anchor="top middle" self="center right">
-									Remove from campaign
+									{{ $t('components.campaign.remove_from_campaign') }}
 								</q-tooltip>
 							</a>
 						</div>
 					</li>
 				</ul>
 				<div v-else>
-					<p>There are no players in this campaign yet.</p>
-					<a @click="players_dialog = true" class="btn btn-block">Add players</a>
+					<p>{{ $t('components.campaign.not_players_in_campaign') }}</p>
+					<a @click="players_dialog = true" class="btn btn-block">{{ $t("add_capitalized") + ' ' + $t("player") }}</a>
 				</div>
 			</div>
 			<div slot="footer" class="card-footer">
@@ -55,7 +55,7 @@
 		<q-dialog v-model="players_dialog">
 			<hk-card header="All Players" :min-width="300">
 				<div slot="header" class="card-header">
-					Add players
+					{{ $t("add_capitalized") + ' ' + $t("player_plural") }}
 					<q-btn icon="close" no-caps flat dense v-close-popup />
 				</div>
 
@@ -77,7 +77,7 @@
 
 							<span v-if="inOtherCampaign(player.campaign_id)">
 								<span class="d-none d-md-inline ml-1 neutral-3 pr-2"
-									><small>Different Campaign</small></span
+									><small>{{ $t('components.campaign.different_campaign') }}</small></span
 								>
 							</span>
 
@@ -88,7 +88,7 @@
 							<div v-else class="actions items-center pr-0">
 								<a @click="addPlayer(player.key)" class="btn btn-sm bg-neutral-5">
 									<i aria-hidden="true" class="fas fa-plus green"></i>
-									<q-tooltip anchor="top middle" self="center middle"> Add character </q-tooltip>
+									<q-tooltip anchor="top middle" self="center middle"> {{ $t('add_capitalized') + ' ' + $t('character') }} </q-tooltip>
 								</a>
 							</div>
 						</li>
